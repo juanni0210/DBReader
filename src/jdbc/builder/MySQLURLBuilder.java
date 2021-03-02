@@ -2,6 +2,13 @@ package jdbc.builder;
 
 import java.util.Map;
 
+/**
+ * MySQLURLBuilder class extends JDBCURLBuilder class
+ * Finished by Juan Ni on Feb 15, 2021
+ * 
+ * @author Juan Ni
+ *
+ */
 public class MySQLURLBuilder extends JDBCURLBuilder {
     public MySQLURLBuilder() {
         setDB("mysql");

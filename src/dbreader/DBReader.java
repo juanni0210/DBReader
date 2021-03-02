@@ -5,8 +5,6 @@ import java.util.List;
 import common.CommonGUIBuilder;
 import javafx.application.Application;
 import javafx.beans.property.SimpleObjectProperty;
-import javafx.beans.value.ObservableValue;
-import javafx.beans.value.WritableObjectValue;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
@@ -22,7 +20,6 @@ import javafx.scene.control.TableColumn.CellEditEvent;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToolBar;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.control.cell.TextFieldTableCell;
 import javafx.scene.input.Clipboard;
 import javafx.scene.input.ClipboardContent;
@@ -40,7 +37,8 @@ import jdbc.builder.JDBCURLBuilderFactory;
 
 /**
  * Assignment 1
- * Finished by Juan Ni on Feb 10, 2021
+ * Finished by Juan Ni on Feb 15, 2021
+ * Finished bonus on March 1, 2021
  * 
  * @author Shahriar (Shawn) Emami
  * 
@@ -104,6 +102,7 @@ public class DBReader extends Application {
         //TODO call TableView::setPlaceholder on table and pass to it a new Label with argument "No Data".
         table.setPlaceholder(new Label("No Data"));
 
+        //bonus part: make the table to be editable, to be selected and selected multiple lines
         table.setEditable(true);
         table.getSelectionModel().setCellSelectionEnabled(true);
         table.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
@@ -139,7 +138,7 @@ public class DBReader extends Application {
         // scene holds all JavaFX components that need to be displayed in Stage
         Scene scene = new Scene(root, WIDTH, HEIGHT);
 
-        // copy the selected cells to the clipboard on Ctrl+C
+        // bonus part: copy the selected cells to the clipboard on Ctrl+C
         scene.getAccelerators().put(new KeyCodeCombination(KeyCode.C, KeyCombination.CONTROL_ANY), () -> {
             ObservableList<TablePosition> posList = table.getSelectionModel().getSelectedCells();
             int prevRow = -1;
@@ -304,6 +303,7 @@ public class DBReader extends Application {
             tc.setCellValueFactory((CellDataFeatures<Object, Object> data) -> new SimpleObjectProperty<>(
                     ((List<Object>) data.getValue()).get(index)));
 
+            //call setCellFactory to make sure the cells become textField that we can edit.
             tc.setCellFactory(TextFieldTableCell.forTableColumn(new StringConverter<Object>() {
 
                 @Override
@@ -318,14 +318,14 @@ public class DBReader extends Application {
 
             }));
 
+            // bonus part: update the database when user edit the cell and hit enter
             tc.setOnEditCommit((CellEditEvent<Object, Object> event) -> {
                 int row = event.getTablePosition().getRow();
+                //get the value of first column of the selected row to make sure we can update the right row by using 
+                //the condition like "where firstColumn = firsColvalue" in the query
                 String firstColValue = ((List<Object>) event.getTableView().getItems().get(row)).get(0).toString();
-                System.out.println(event.getOldValue());
-                System.out.println(event.getNewValue());
-
                 try {
-                    controller.update(row, firstColValue, col, event.getNewValue().toString());
+                    controller.update(firstColValue, col, event.getNewValue().toString());
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }

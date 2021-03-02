@@ -9,6 +9,13 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import jdbc.builder.JDBCURLBuilder;
 
+/**
+ * JDBCController class
+ * Finished by Juan Ni on Feb 15, 2021
+ * 
+ * @author Juan Ni
+ *
+ */
 public class JDBCController implements AutoCloseable {
     private JDBCURLBuilder builder;
     private JDBCModel model;
@@ -87,8 +94,9 @@ public class JDBCController implements AutoCloseable {
         return model.search(tableUse.getValue(), searchTerm);
     }
 
-    public void update(int index, String firstColValue, String col, String newValue) throws SQLException {
-        model.update(tableUse.getValue(), index, firstColValue, col, newValue);
+    //call update method on model to update database with user input
+    public void update(String firstColValue, String col, String newValue) throws SQLException {
+        model.update(tableUse.getValue(), firstColValue, col, newValue);
     }
 
     @Override

@@ -23,6 +23,11 @@ import javafx.scene.layout.GridPane;
 import javafx.util.Pair;
 import jdbc.JDBCController;
 
+/**
+ * ConnectDialog class
+ * Finished by Juan Ni on Feb 15, 2021
+ *
+ */
 public class ConnectDialog {
 
     /**

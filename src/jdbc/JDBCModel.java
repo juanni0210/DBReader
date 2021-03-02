@@ -12,6 +12,13 @@ import java.util.List;
 import java.util.Objects;
 
 
+/**
+ * Model class
+ * Finished by Juan Ni on Feb 15, 2021
+ * 
+ * @author Juan Ni
+ *
+ */
 public class JDBCModel {
     private List<String> columnNames;
     private List<String> tableNames;
@@ -191,7 +198,8 @@ public class JDBCModel {
 
     }
 
-    public void update(String table, int index, String firstColValue, String col, String newValue) throws SQLException {
+    //this method will build an update query to update the database using input from user
+    public void update(String table, String firstColValue, String col, String newValue) throws SQLException {
         StringBuilder updateQuery = new StringBuilder("update ");
         updateQuery.append(table);
         updateQuery.append(" set ");
