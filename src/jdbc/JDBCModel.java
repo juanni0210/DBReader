@@ -109,10 +109,7 @@ public class JDBCModel {
                 //1.5
                 columnNames.add(rs.getString("COLUMN_NAME"));
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
-
         //1.6 & 1.7
         List<String> list = Collections.unmodifiableList(columnNames);
 
@@ -133,8 +130,6 @@ public class JDBCModel {
                 //1.5
                 tableNames.add(rs.getString("TABLE_NAME"));
             }
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
 
         //1.6 & 1.7
