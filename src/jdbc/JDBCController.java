@@ -72,7 +72,7 @@ public class JDBCController implements AutoCloseable {
     }
 
     public List<String> getColumnNames() throws SQLException {
-        return model.getColumnNames();
+        return model.getAndInitializeColumnNames(tableUse.getValue());
     }
 
     public ObservableList<String> getTableNames() throws SQLException {
@@ -81,7 +81,7 @@ public class JDBCController implements AutoCloseable {
         if (model.isConnected()) {
             tableNameList.clear();
             //change here
-            tableNameList.addAll(model.getTableNames());
+            tableNameList.addAll(model.getAndInitializeTableNames());
         }
         return tableNameList;
     }

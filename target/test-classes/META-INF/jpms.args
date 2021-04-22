@@ -1,4 +1,0 @@
---patch-module
-dbreader=_
---add-reads
-dbreader=ALL-UNNAMED

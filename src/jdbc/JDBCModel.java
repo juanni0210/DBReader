@@ -38,16 +38,6 @@ public class JDBCModel {
         this.pass = pass;
     }
 
-    //columnNames getter, not in the UML
-    public List<String> getColumnNames() {
-        return columnNames;
-    }
-
-    //tableNames getter, not in the UML
-    public List<String> getTableNames() {
-        return tableNames;
-    }
-
     //this method  throw an exception if connection is null or closed
     private void checkConnectionIsValid() throws SQLException {
         if (connection == null || connection.isClosed()) {
@@ -86,9 +76,6 @@ public class JDBCModel {
             close();
         }
         connection = DriverManager.getConnection(url, user, pass);
-
-        //when connected, get and initialize table from database
-        getAndInitializeTableNames();
     }
 
     public boolean isConnected() throws SQLException {
@@ -175,7 +162,6 @@ public class JDBCModel {
             sqlBuilder.append(" like ? or ");
         }
         sqlBuilder.setLength(sqlBuilder.length() - 3);
-
         return sqlBuilder.toString();
     }
 
